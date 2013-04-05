@@ -1,4 +1,6 @@
 Gem::Specification.new do |s|
+  is_java = !! (RUBY_PLATFORM =~ /java/)
+
   s.name        = "license_finder"
   s.version     = "0.8.0"
   s.authors     = ["Jacob Maine", "Matthew Kane Parker", "Ian Lesperance", "David Edwards", "Paul Meskers", "Brent Wheeldon", "David Tengdin"]
@@ -18,7 +20,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "bundler"
   s.add_dependency "sequel"
-  s.add_dependency "sqlite3"
+  s.add_dependency "sqlite3" unless is_java
 
   %w(rspec rake xpath capybara cucumber database_cleaner).each do |gem|
     s.add_development_dependency gem
@@ -29,4 +31,6 @@ Gem::Specification.new do |s|
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+
+  s.platform = 'java' if is_java
 end
